@@ -22,27 +22,26 @@ public class NewsAdapter extends ArrayAdapter<News> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItemView = convertView;
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.news_list_item, parent, false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.news_list_item, parent, false);
         }
 
         News currentNews = getItem(position);
 
-        TextView sectionTextView = listItemView.findViewById(R.id.section);
+        TextView sectionTextView = convertView.findViewById(R.id.section);
         sectionTextView.setText(currentNews.getSection());
 
-        TextView titleTextView = listItemView.findViewById(R.id.title);
+        TextView titleTextView = convertView.findViewById(R.id.title);
         titleTextView.setText(currentNews.getTitle());
 
-        TextView authorTextView = listItemView.findViewById(R.id.author);
+        TextView authorTextView = convertView.findViewById(R.id.author);
         authorTextView.setText(currentNews.getAuthor());
 
-        TextView dateTextView = listItemView.findViewById(R.id.date);
+        TextView dateTextView = convertView.findViewById(R.id.date);
         String dateTime = currentNews.getDate();
         String[] parts = dateTime.split(DATE_SEPARATOR);
         dateTextView.setText(parts[0]);
 
-        return listItemView;
+        return convertView;
     }
 }
