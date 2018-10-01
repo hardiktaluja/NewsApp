@@ -23,4 +23,6 @@
     <string name="settings_order_by_relevance_label">Relevance</string>
     <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
 
+    <string name="api_key">4fe82fdf-10e6-4807-bf93-7b0ccee40bbe</string>
+
 </resources>

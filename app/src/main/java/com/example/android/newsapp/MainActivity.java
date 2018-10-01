@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         uriBuilder.appendQueryParameter("page-size", numberOfArticles);
         uriBuilder.appendQueryParameter("order-by", orderBy);
         uriBuilder.appendQueryParameter("show-tags", "contributor");
-        uriBuilder.appendQueryParameter("api-key", "4fe82fdf-10e6-4807-bf93-7b0ccee40bbe");
+        uriBuilder.appendQueryParameter("api-key", getString(R.string.api_key));
 
         return new NewsLoader(this, uriBuilder.toString());
     }

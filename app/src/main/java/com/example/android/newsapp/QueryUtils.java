@@ -22,6 +22,10 @@ public final class QueryUtils {
 
     public static final String LOG_TAG = QueryUtils.class.getName();
 
+    public static final int MAX_READ_TIMEOUT = 10000;
+
+    public static final int MAX_CONNECT_TIMEOUT = 15000;
+
     private QueryUtils() {
     }
 
@@ -34,20 +38,20 @@ public final class QueryUtils {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
-            JSONObject response = baseJsonResponse.getJSONObject("response");
-            JSONArray newsArray = response.getJSONArray("results");
+            JSONObject response = baseJsonResponse.optJSONObject("response");
+            JSONArray newsArray = response.optJSONArray("results");
             for (int i = 0; i < newsArray.length(); i++) {
-                JSONObject currentNews = newsArray.getJSONObject(i);
-                String section = currentNews.getString("sectionName");
-                String title = currentNews.getString("webTitle");
-                String url = currentNews.getString("webUrl");
-                String date = currentNews.getString("webPublicationDate");
+                JSONObject currentNews = newsArray.optJSONObject(i);
+                String section = currentNews.optString("sectionName");
+                String title = currentNews.optString("webTitle");
+                String url = currentNews.optString("webUrl");
+                String date = currentNews.optString("webPublicationDate");
                 String author = "";
 
                 JSONArray tags = currentNews.optJSONArray("tags");
                 if (tags.length() != 0) {
-                    JSONObject tag = tags.getJSONObject(0);
-                    author = tag.getString("webTitle");
+                    JSONObject tag = tags.optJSONObject(0);
+                    author = tag.optString("webTitle");
                 }
 
                 News article = new News(section, title, author, date, url);
@@ -79,8 +83,8 @@ public final class QueryUtils {
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(MAX_READ_TIMEOUT);
+            urlConnection.setConnectTimeout(MAX_CONNECT_TIMEOUT);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
